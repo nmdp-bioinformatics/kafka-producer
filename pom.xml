@@ -6,7 +6,83 @@
 
     <groupId>org.nmdp</groupId>
     <artifactId>service-kafka-producer</artifactId>
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <name>service-kafka-producer</name>
+    <description>Kafka Message Producer</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java-version>1.8</java-version>
+        <maven-compiler-plugin-version>3.3</maven-compiler-plugin-version>
+        <apache-kafka-version>0.10.2.1</apache-kafka-version>
+        <kafka-message-model-version>1.0.0</kafka-message-model-version>
+        <spring-boot-parent-version>1.4.0.RELEASE</spring-boot-parent-version>
+        <spring-boot-version>1.4.3.RELEASE</spring-boot-version>
+        <spring-framework-version>4.3.5.RELEASE</spring-framework-version>
+    </properties>
+
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin-version}</version>
+                <configuration>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.nmdp</groupId>
+            <artifactId>service-kafka-producer-model</artifactId>
+            <version>${kafka-message-model-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+            <version>${apache-kafka-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring-framework-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -1,9 +1,9 @@
-package org.nmdp.servicekafkaproducer.producer;
+package org.nmdp.servicekafkaproducer;
 
 /**
- * Created by Andrew S. Brown, Ph.D., <andrew@nmdp.org>, on 5/19/17.
+ * Created by Andrew S. Brown, Ph.D., <andrew@nmdp.org>, on 5/21/17.
  * <p>
- * kafka-producer
+ * service-kafka-producer
  * Copyright (c) 2012-2017 National Marrow Donor Program (NMDP)
  * <p>
  * This library is free software; you can redistribute it and/or modify it
@@ -24,5 +24,12 @@ package org.nmdp.servicekafkaproducer.producer;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-public class KafkaProducer {
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ServiceKafkaProducerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ServiceKafkaProducerApplication.class, args);
+    }
 }
