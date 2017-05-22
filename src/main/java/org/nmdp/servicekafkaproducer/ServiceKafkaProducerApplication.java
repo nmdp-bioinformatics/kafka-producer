@@ -24,6 +24,8 @@ package org.nmdp.servicekafkaproducer;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
+import org.nmdp.servicekafkaproducer.config.KafkaProducerConfiguration;
+import org.nmdp.servicekafkaproducer.producer.KafkaMessageProducer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

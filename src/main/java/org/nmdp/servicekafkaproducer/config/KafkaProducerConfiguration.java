@@ -25,8 +25,72 @@ package org.nmdp.servicekafkaproducer.config;
  */
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Configuration
 public class KafkaProducerConfiguration {
+
+    @Value("${kafka.bootstrap.server}")
+    private String bootstrapServer;
+
+    @Value("${kafka.acks}")
+    private String acks;
+
+    @Value("${kafka.retries}")
+    private Integer retries;
+
+    @Value("${kafka.batch.size}")
+    private Integer batchSize;
+
+    @Value("${kafka.linger.ms}")
+    private Integer lingerMs;
+
+    @Value("${kafka.buffer.memory}")
+    private Integer bufferMemory;
+
+    @Value("${kafka.key.serializer}")
+    private String keySerializer;
+
+    @Value("${kafka.value.serializer}")
+    private String valueSerializer;
+
+    @Value("${kafka.topic}")
+    private String topic;
+
+    @Value("${kafka.server.key}")
+    private Object key;
+
+    @Bean
+    public String getTopic() {
+        return topic;
+    }
+
+    @Bean
+    public Object getKey() {
+        return key;
+    }
+
+    @Bean
+    public Properties getProducerConfiguration() {
+        Properties props = new Properties();
+        List<Field> fields = Arrays.stream(this.getClass().getDeclaredFields())
+                .filter(Objects::nonNull)
+                .filter(f -> implementsValueAttribute(f))
+                .collect(Collectors.toList());
+
+        for (Field field : fields) {
+            field.setAccessible(true);
+        }
+
+        return props;
+    }
+
+    private Boolean implementsValueAttribute(Field field) {
+        return true;
+    }
 }
