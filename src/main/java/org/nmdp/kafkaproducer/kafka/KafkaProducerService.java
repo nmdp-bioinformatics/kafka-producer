@@ -1,7 +1,7 @@
-package org.nmdp.servicekafkaproducer;
+package org.nmdp.kafkaproducer.kafka;
 
 /**
- * Created by Andrew S. Brown, Ph.D., <andrew@nmdp.org>, on 5/21/17.
+ * Created by Andrew S. Brown, Ph.D., <andrew@nmdp.org>, on 6/16/17.
  * <p>
  * service-kafka-producer
  * Copyright (c) 2012-2017 National Marrow Donor Program (NMDP)
@@ -24,12 +24,10 @@ package org.nmdp.servicekafkaproducer;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.nmdp.servicekafkaproducermodel.models.KafkaMessage;
 
-@SpringBootApplication
-public class ServiceKafkaProducerApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(ServiceKafkaProducerApplication.class, args);
-    }
+import java.util.List;
+
+public interface KafkaProducerService {
+    void produceHmlKafkaMessages(List<KafkaMessage> kafkaMessages, String topic, String key);
 }

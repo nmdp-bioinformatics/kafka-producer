@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.nmdp</groupId>
-    <artifactId>service-kafka-producer</artifactId>
+    <artifactId>kafka-producer</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
-    <name>service-kafka-producer</name>
+    <name>kafka-producer</name>
     <description>Kafka Message Producer</description>
 
     <properties>
@@ -18,10 +18,11 @@
         <java-version>1.8</java-version>
         <maven-compiler-plugin-version>3.3</maven-compiler-plugin-version>
         <apache-kafka-version>0.10.2.1</apache-kafka-version>
-        <kafka-message-model-version>1.1.0</kafka-message-model-version>
+        <kafka-message-model-version>1.8.2</kafka-message-model-version>
         <spring-boot-parent-version>1.4.0.RELEASE</spring-boot-parent-version>
         <spring-boot-version>1.4.3.RELEASE</spring-boot-version>
         <spring-framework-version>4.3.5.RELEASE</spring-framework-version>
+        <nmdp-models-version>2.0.0</nmdp-models-version>
     </properties>
 
     <build>
@@ -82,6 +83,11 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.nmdp</groupId>
+            <artifactId>service-hml-fhir-converter-models</artifactId>
+            <version>${nmdp-models-version}</version>
         </dependency>
     </dependencies>
 
