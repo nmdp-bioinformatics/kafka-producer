@@ -27,11 +27,8 @@ package org.nmdp.kafkaproducer.kafka;
 import org.apache.log4j.Logger;
 import org.nmdp.kafkaproducer.config.KafkaProducerConfiguration;
 import org.nmdp.kafkaproducer.config.KafkaMessageProducerConfiguration;
-import org.nmdp.hmlfhirconvertermodels.domain.fhir.FhirMessage;
-import org.nmdp.hmlfhirconvertermodels.dto.hml.Hml;
 
 import org.nmdp.servicekafkaproducermodel.models.KafkaMessage;
-import org.nmdp.servicekafkaproducermodel.models.KafkaMessagePayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -50,7 +47,7 @@ public class KafkaProducerServiceImpl implements KafkaProducerService {
     }
 
     @Override
-    public void produceHmlKafkaMessages(List<KafkaMessage> kafkaMessages, String topic, String key) {
+    public void produceKafkaMessages(List<KafkaMessage> kafkaMessages, String topic, String key) {
         KafkaMessageProducerConfiguration config = new KafkaMessageProducerConfiguration(
                 kafkaConfig.getProducerConfiguration(), topic, key);
 

@@ -29,5 +29,5 @@ import org.nmdp.servicekafkaproducermodel.models.KafkaMessage;
 import java.util.List;
 
 public interface KafkaProducerService {
-    void produceHmlKafkaMessages(List<KafkaMessage> kafkaMessages, String topic, String key);
+    void produceKafkaMessages(List<KafkaMessage> kafkaMessages, String topic, String key);
 }
