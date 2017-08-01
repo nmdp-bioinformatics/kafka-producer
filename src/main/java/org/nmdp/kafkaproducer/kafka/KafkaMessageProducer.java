@@ -24,6 +24,7 @@ package org.nmdp.kafkaproducer.kafka;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
+import java.io.Closeable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,22 +39,20 @@ import org.nmdp.servicekafkaproducermodel.models.KafkaMessage;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 
-public class KafkaMessageProducer {
+public class KafkaMessageProducer<K, M> implements Closeable {
 
-    private final KafkaMessageProducerConfiguration config;
+    private final Producer<K, M> producer;
     private static final Logger LOG = Logger.getLogger(KafkaMessageProducer.class);
 
     public KafkaMessageProducer(KafkaMessageProducerConfiguration config) {
-        this.config = config;
+        producer = new KafkaProducer<>(config.getProperties());
     }
 
-    public void send(List<KafkaMessage> messages) {
-        Properties properties = config.getProperties();
-        Producer<String, String> producer = new KafkaProducer<>(properties);
+    public void send(List<M> messages, K key, String topic) {
         List<KafkaProducerCallback> callbacks = new ArrayList<>();
-        List<ProducerRecord<String, String>> records =  messages.stream()
+        List<ProducerRecord<K, M>> records =  messages.stream()
                 .filter(Objects::nonNull)
-                .map(message -> new ProducerRecord<>(config.getTopic(), config.getKey().toString(), message.toJson()))
+                .map(message -> new ProducerRecord<>(topic, key, message))
                 .collect(Collectors.toList());
 
         for (ProducerRecord record : records) {
@@ -67,23 +66,11 @@ public class KafkaMessageProducer {
         while (!messageProductionComplete(callbacks)) {
             LOG.info("Sending kafka messages.");
         }
-
-        producer.close();
     }
 
-    private byte[] toBinary(Object object) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] array = new byte[0];
-
-        try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-            objectOutputStream.writeObject(object);
-            array = byteArrayOutputStream.toByteArray();
-        } catch (Exception ex) {
-            LOG.error("Error converting object to byte[].", ex);
-        }
-
-        return array;
+    @Override
+    public void close() {
+        producer.close();
     }
 
     private Boolean messageProductionComplete(List<KafkaProducerCallback> callbacks) {
