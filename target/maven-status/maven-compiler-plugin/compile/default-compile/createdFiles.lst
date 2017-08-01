@@ -1,0 +1,7 @@
+org/nmdp/kafkaproducer/config/KafkaProducerConfiguration.class
+org/nmdp/kafkaproducer/kafka/KafkaProducerService.class
+org/nmdp/kafkaproducer/kafka/KafkaMessageProducer.class
+org/nmdp/kafkaproducer/kafka/KafkaProducerCallback.class
+org/nmdp/kafkaproducer/config/KafkaMessageProducerConfiguration.class
+org/nmdp/kafkaproducer/kafka/KafkaProducerServiceImpl.class
+org/nmdp/kafkaproducer/util/ConvertToKafkaMessage.class
