@@ -24,10 +24,9 @@ package org.nmdp.kafkaproducer.kafka;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-import org.nmdp.servicekafkaproducermodel.models.KafkaMessage;
 
 import java.util.List;
 
-public interface KafkaProducerService {
-    void produceKafkaMessages(List<KafkaMessage> kafkaMessages, String topic, String key);
+public interface KafkaProducerService<K, M> {
+    void produceKafkaMessages(List<M> kafkaMessages, String topic, K key);
 }

@@ -29,24 +29,12 @@ import java.util.Properties;
 public class KafkaMessageProducerConfiguration {
 
     private final Properties properties;
-    private final String topic;
-    private final Object key;
 
-    public KafkaMessageProducerConfiguration(Properties properties, String topic, Object key) {
+    public KafkaMessageProducerConfiguration(Properties properties) {
         this.properties = properties;
-        this.topic = topic;
-        this.key = key;
     }
 
     public Properties getProperties() {
         return properties;
-    }
-
-    public String getTopic() {
-        return topic;
-    }
-
-    public Object getKey() {
-        return key;
     }
 }

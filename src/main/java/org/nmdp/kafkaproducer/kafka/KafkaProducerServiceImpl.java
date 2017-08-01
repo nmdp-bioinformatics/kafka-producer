@@ -28,7 +28,6 @@ import org.apache.log4j.Logger;
 import org.nmdp.kafkaproducer.config.KafkaProducerConfiguration;
 import org.nmdp.kafkaproducer.config.KafkaMessageProducerConfiguration;
 
-import org.nmdp.servicekafkaproducermodel.models.KafkaMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -36,22 +35,19 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class KafkaProducerServiceImpl implements KafkaProducerService {
+public class KafkaProducerServiceImpl<K, M> implements KafkaProducerService<K, M> {
 
-    private final KafkaProducerConfiguration kafkaConfig;
+    private final KafkaMessageProducer<K, M> producer;
     private final static Logger LOG = Logger.getLogger(KafkaProducerServiceImpl.class);
 
     @Autowired
     public KafkaProducerServiceImpl(@Qualifier("kafkaProducerConfiguration") KafkaProducerConfiguration kafkaConfig) {
-        this.kafkaConfig = kafkaConfig;
+        KafkaMessageProducerConfiguration config = new KafkaMessageProducerConfiguration(kafkaConfig.getProducerConfiguration());
+        producer = new KafkaMessageProducer<>(config);
     }
 
     @Override
-    public void produceKafkaMessages(List<KafkaMessage> kafkaMessages, String topic, String key) {
-        KafkaMessageProducerConfiguration config = new KafkaMessageProducerConfiguration(
-                kafkaConfig.getProducerConfiguration(), topic, key);
-
-        KafkaMessageProducer producer = new KafkaMessageProducer(config);
-        producer.send(kafkaMessages);
+    public void produceKafkaMessages(List<M> kafkaMessages, String topic, K key) {
+        producer.send(kafkaMessages, key, topic);
     }
 }
