@@ -42,6 +42,13 @@ public class ConvertToKafkaMessage {
             .collect(Collectors.toList());
     }
 
+    public static <T> List<KafkaMessage> transform(List<T> dtos, String key) {
+        return dtos.stream()
+            .filter(Objects::nonNull)
+            .map(e -> createKafkaMessage(e, null, key))
+            .collect(Collectors.toList());
+    }
+
     private static <T> KafkaMessage createKafkaMessage(T t, String id, String key) {
         KafkaMessage message = new KafkaMessage();
 
